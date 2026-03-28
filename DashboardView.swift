@@ -11,18 +11,18 @@ struct DashboardView: View {
     ]
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 20) {
                 
                 Text("Level \(user.level)")
                     .font(.largeTitle)
                 
                 ProgressView(value: Double(user.xp), total: 100)
-                    .padding()
+                    .padding(.horizontal)
                 
                 Text("Streak: \(user.streak) days")
                 
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 8) {
                     Text("Stats")
                         .font(.headline)
                     
@@ -30,15 +30,20 @@ struct DashboardView: View {
                     Text("Focus: \(user.focus)")
                     Text("Discipline: \(user.discipline)")
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal)
                 
                 List(missions) { mission in
                     NavigationLink(destination: MissionView(user: $user, mission: mission)) {
                         VStack(alignment: .leading) {
-                            Text(mission.title).bold()
-                            Text(mission.description).font(.caption)
+                            Text(mission.title)
+                                .bold()
+                            Text(mission.description)
+                                .font(.caption)
                         }
                     }
                 }
+                .listStyle(.plain)
             }
             .navigationTitle("MindForge")
         }

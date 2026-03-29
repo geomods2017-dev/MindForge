@@ -6,12 +6,11 @@ workflows:
       xcode: latest
 
     scripts:
-      - name: Build IPA (force no export plist)
+      - name: Build IPA
         script: |
           xcode-project build-ipa \
             --project "MindForge.xcodeproj" \
-            --scheme "MindForge" \
-            --no-use-profiles
+            --scheme "MindForge"
 
     artifacts:
       - build/ios/ipa/*.ipa

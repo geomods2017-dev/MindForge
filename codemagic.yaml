@@ -5,12 +5,27 @@ workflows:
       xcode: latest
 
     scripts:
+      - name: Create export options plist
+        script: |
+          cat > /Users/builder/export_options.plist <<'EOF'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key>
+            <string>development</string>
+            <key>signingStyle</key>
+            <string>automatic</string>
+          </dict>
+          </plist>
+          EOF
+
       - name: Build IPA
         script: |
           xcode-project build-ipa \
             --project "MindForge.xcodeproj" \
             --scheme "MindForge" \
-            --archive-method development
+            --export-options-plist "/Users/builder/export_options.plist"
 
     artifacts:
       - build/ios/ipa/*.ipa

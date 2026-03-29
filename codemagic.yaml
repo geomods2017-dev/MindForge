@@ -3,6 +3,9 @@ workflows:
     name: iOS Build
     environment:
       xcode: latest
+      ios_signing:
+        distribution_type: development
+        bundle_identifier: com.tyler.MindForge
 
     scripts:
       - name: Create export options plist

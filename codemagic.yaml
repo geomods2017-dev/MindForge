@@ -6,19 +6,11 @@ workflows:
       xcode: latest
 
     scripts:
-      - name: Install Flutter dependencies
-        script: |
-          flutter pub get
-
-      - name: Build iOS
-        script: |
-          flutter build ios --release --no-codesign
-
       - name: Build IPA
         script: |
           xcode-project build-ipa \
-            --workspace "ios/Runner.xcworkspace" \
-            --scheme "Runner"
+            --project "MindForge.xcodeproj" \
+            --scheme "MindForge"
 
     artifacts:
       - build/ios/ipa/*.ipa
